@@ -1,0 +1,75 @@
+document.getElementById('studentForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    // Collect form data
+    const formData = {
+        name: document.getElementById('name').value,
+        gender: document.getElementById('gender').value,
+        part_time_job: document.getElementById('part_time_job').value === 'yes' ? 1 : 0,
+        absence_days: parseInt(document.getElementById('absence_days').value),
+        extracurricular_activities: document.getElementById('extracurricular_activities').value === 'yes' ? 1 : 0,
+        weekly_self_study_hours: parseInt(document.getElementById('weekly_self_study_hours').value),
+        career_aspiration: document.getElementById('career_aspiration').value,
+        math_score: parseFloat(document.getElementById('math_score').value),
+        history_score: parseFloat(document.getElementById('history_score').value),
+        physics_score: parseFloat(document.getElementById('physics_score').value),
+        chemistry_score: parseFloat(document.getElementById('chemistry_score').value),
+        biology_score: parseFloat(document.getElementById('biology_score').value),
+        english_score: parseFloat(document.getElementById('english_score').value),
+        geography_score: parseFloat(document.getElementById('geography_score').value)
+    };
+
+    // Send data to the backend
+    try {
+        const response = await fetch('http://localhost:5000/predict', { // Adjust the URL as needed
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        displayResult(result);
+    } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('result').innerText = 'An error occurred while processing your request.';
+    }
+});
+
+function displayResult(result) {
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+        <h2>Analysis Result</h2>
+        <p><strong>Predicted Risk Status:</strong> ${result.risk_status}</p>
+        <p><strong>Intervention Recommendations:</strong></p>
+        <pre>${result.recommendations}</pre>
+    `;
+}
+async function analyzePerformance() {
+  const score = parseInt(document.getElementById('geographyScore').value, 10);  // Ensuring integer conversion
+
+  try {
+      const response = await fetch('http://127.0.0.1:5000/analyze', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ score })
+      });
+
+      if (!response.ok) {
+          throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      alert(result.result || result.error);
+  } catch (error) {
+      console.error('Error:', error);
+      alert('An error occurred while processing your request.');
+  }
+}
