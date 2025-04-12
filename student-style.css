@@ -1,0 +1,58 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #eef2f5;
+  margin: 0;
+  padding: 20px;
+}
+
+.risk-container {
+  max-width: 650px;
+  margin: auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input, select {
+  margin: 8px 0;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #219150;
+}
+
+.risk-result {
+  margin-top: 25px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-left: 5px solid #2980b9;
+  border-radius: 8px;
+}
